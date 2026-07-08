@@ -10,12 +10,6 @@ The first version focuses on **Squats** and **Planks**, with future support plan
 
 # 1. Features
 
-## User Authentication
-- Register
-- Login
-- Logout
-- Secure JWT Authentication
-
 ## Exercise Selection
 - Squat
 - Plank
