@@ -1,267 +1,373 @@
-# FitVision -- Real-Time Squat & Plank Posture Correction
+# FitVision - AI Mobile Fitness Coach
 
-## Project Overview
+## 📖 Project Overview
 
-An AI-powered fitness coaching application that uses computer vision to
-detect squat and plank exercises in real time, evaluate posture, provide
-corrective feedback, count repetitions or hold time, and track user
-progress.
+FitVision is an AI-powered mobile fitness coaching application that uses computer vision and pose estimation to analyze exercise posture in real time. The application helps users perform exercises correctly by detecting body landmarks from the mobile camera, evaluating posture, counting repetitions, measuring hold duration, and providing instant corrective feedback.
 
-## Problem Statement
+The first version focuses on **Squats** and **Planks**, with future support planned for additional exercises such as Push-ups, Lunges, Burpees, and Jumping Jacks.
 
-Many people exercise without supervision, leading to poor form and
-increased injury risk. This project provides instant AI-based posture
-analysis using a webcam.
+---
 
-## Objectives
+# 1. Features
 
--   Detect squats and planks in real time.
--   Evaluate posture using body landmarks.
--   Count squat repetitions.
--   Measure plank hold duration.
--   Give live corrective feedback.
--   Store workout history and analytics.
+## User Authentication
+- Register
+- Login
+- Logout
+- Secure JWT Authentication
 
-## Tech Stack
+## Exercise Selection
+- Squat
+- Plank
 
-### Frontend
+## AI Pose Detection
+- Real-time pose estimation
+- Mobile camera support
+- Skeleton overlay
+- Confidence score
 
--   React + Vite
--   CSS
--   Webcam API
+## Squat Analysis
+- Automatic repetition counting
+- Knee angle analysis
+- Hip depth analysis
+- Back posture analysis
+- Correct vs incorrect squat detection
+- Real-time corrective feedback
 
-### Backend
+## Plank Analysis
+- Hold timer
+- Back alignment detection
+- Hip position monitoring
+- Shoulder alignment analysis
+- Real-time corrective feedback
 
--   FastAPI
--   SQLite
+## Dashboard
+- Workout history
+- Total workouts
+- Total repetitions
+- Longest plank
+- Accuracy score
+- Weekly progress
 
-### AI
+## Analytics
+- Exercise statistics
+- Progress tracking
+- Personal best records
+- Workout summaries
 
--   MediaPipe Pose
--   OpenCV
--   NumPy
+## Future Features
+- Push-up detection
+- Lunge detection
+- Burpee detection
+- Voice coaching
+- Workout streaks
+- AI workout recommendations
+- Wearable integration
 
-## Features
+---
 
-### Authentication
-
--   Register
--   Login
--   Logout
-
-### AI Coach
-
--   Live webcam
--   Pose estimation
--   Joint-angle calculation
--   Posture scoring
--   Feedback overlay
-
-### Squats
-
--   Rep counting
--   Knee angle analysis
--   Hip depth analysis
--   Correct/incorrect rep detection
-
-### Planks
-
--   Hold timer
--   Spine alignment
--   Hip position monitoring
--   Shoulder alignment
-
-### Dashboard
-
--   Workout history
--   Accuracy
--   Calories estimate
--   Weekly progress
--   Achievements
-
-## User Stories
-
-1.  As a user, I want to register so my workouts are saved.
-2.  As a user, I want to log in securely.
-3.  As a user, I want to choose squat or plank.
-4.  As a user, I want AI to detect my body.
-5.  As a user, I want live posture feedback.
-6.  As a user, I want squat reps counted.
-7.  As a user, I want plank duration tracked.
-8.  As a user, I want posture corrections.
-9.  As a user, I want workout history.
-10. As a user, I want progress charts.
-11. As a user, I want achievements.
-12. As a user, I want confidence scores.
-13. As a user, I want session summaries.
-14. As a user, I want calorie estimates.
-15. As a user, I want to compare previous sessions.
-
-## Database Schema
-
-### users
-
-  Field           Type
-  --------------- ------------
-  id              INTEGER PK
-  name            TEXT
-  email           TEXT
-  password_hash   TEXT
-
-### workout_sessions
-
-  Field           Type
-  --------------- ------------
-  id              INTEGER PK
-  user_id         INTEGER FK
-  exercise_type   TEXT
-  duration        INTEGER
-  accuracy        REAL
-  calories        REAL
-
-### squat_results
-
-session_id, repetitions, correct_reps, incorrect_reps,
-average_knee_angle
-
-### plank_results
-
-session_id, hold_time, posture_score, average_hip_angle
-
-### achievements
-
-id, title, description
-
-## API List
+# 2. User Stories
 
 ### Authentication
 
--   POST /api/auth/register
--   POST /api/auth/login
-
-### AI
-
--   POST /api/start-session
--   POST /api/analyze-frame
--   POST /api/end-session
+- As a user, I want to create an account so my workout history is saved.
+- As a user, I want to log in securely.
+- As a user, I want to manage my profile.
 
 ### Workout
 
--   POST /api/workout/save
--   GET /api/history/{userId}
--   GET /api/dashboard/{userId}
+- As a user, I want to choose an exercise before starting.
+- As a user, I want to use my phone camera for posture analysis.
+- As a user, I want AI to detect my posture automatically.
+- As a user, I want incorrect posture to be identified.
+- As a user, I want live suggestions to improve my form.
 
-## Folder Structure
+### Squats
 
-``` text
-fitness-ai/
-├── frontend/
-├── backend/
-├── ai/
-│   ├── pose_detector.py
-│   ├── squat_analyzer.py
-│   ├── plank_analyzer.py
-│   ├── angle_calculator.py
-│   └── feedback_generator.py
-├── tests/
-├── docs/
-└── README.md
+- As a user, I want my squat repetitions counted automatically.
+- As a user, I want to know whether each squat is correct.
+- As a user, I want feedback on my knee and hip position.
+
+### Planks
+
+- As a user, I want my plank duration measured automatically.
+- As a user, I want feedback on my spine and hip alignment.
+
+### Dashboard
+
+- As a user, I want to review previous workout sessions.
+- As a user, I want to monitor my fitness progress.
+- As a user, I want to view workout statistics.
+
+---
+
+# 3. Database Schema
+
+## users
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| full_name | TEXT |
+| email | TEXT |
+| password_hash | TEXT |
+| created_at | DATETIME |
+
+---
+
+## workout_sessions
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| user_id | INTEGER FK |
+| exercise_type | TEXT |
+| duration | INTEGER |
+| accuracy | REAL |
+| calories | REAL |
+| created_at | DATETIME |
+
+---
+
+## squat_results
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| session_id | INTEGER FK |
+| repetitions | INTEGER |
+| correct_reps | INTEGER |
+| incorrect_reps | INTEGER |
+| average_knee_angle | REAL |
+| average_hip_angle | REAL |
+
+---
+
+## plank_results
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| session_id | INTEGER FK |
+| hold_time | INTEGER |
+| posture_score | REAL |
+| average_back_angle | REAL |
+| average_hip_angle | REAL |
+
+---
+
+## achievements
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| title | TEXT |
+| description | TEXT |
+| required_points | INTEGER |
+
+---
+
+## user_achievements
+
+| Field | Type |
+|--------|------|
+| id | INTEGER PK |
+| user_id | INTEGER FK |
+| achievement_id | INTEGER FK |
+
+---
+
+# 4. API List
+
+## Authentication
+
+```
+POST   /api/auth/register
+POST   /api/auth/login
+GET    /api/auth/profile
 ```
 
-## AI Pipeline
+---
 
-Webcam → OpenCV → MediaPipe Pose → Landmark Extraction → Angle
-Calculation → Exercise Detection → Feedback → Database
+## AI
 
-## Timeline
+```
+POST   /api/workout/start
+POST   /api/workout/analyze
+POST   /api/workout/end
+```
 
-### Week 1
+---
 
-Planning, UI, backend, authentication.
+## Dashboard
 
-### Week 2
+```
+GET    /api/dashboard
+GET    /api/history
+GET    /api/statistics
+```
 
-Pose estimation and squat detection.
+---
 
-### Week 3
+## Workout
 
-Plank detection, dashboard, database.
+```
+POST   /api/workout/save
+GET    /api/workout/:id
+DELETE /api/workout/:id
+```
 
-### Week 4
+---
 
-Testing, optimization, deployment.
+## Achievements
 
-## Sprint Plan
+```
+GET    /api/achievements
+GET    /api/user-achievements
+```
 
-### Sprint 1
+---
 
-Setup project, authentication, webcam.
+# 5. Folder Structure
 
-### Sprint 2
+```text
+fitvision/
 
-Pose estimation, squat analysis.
+├── mobile/
+│   ├── app/
+│   ├── assets/
+│   ├── components/
+│   ├── navigation/
+│   ├── screens/
+│   ├── services/
+│   ├── hooks/
+│   ├── utils/
+│   └── App.tsx
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── services/
+│   │   └── main.py
+│
+├── ai/
+│   ├── pose_detector.py
+│   ├── squat_detector.py
+│   ├── plank_detector.py
+│   ├── angle_calculator.py
+│   ├── feedback_engine.py
+│   └── utils.py
+│
+├── docs/
+├── tests/
+├── README.md
+└── LICENSE
+```
 
-### Sprint 3
+---
 
-Plank analysis, history, dashboard.
+# 6. Timeline
 
-### Sprint 4
+## Week 1
+- Project planning
+- UI design
+- Mobile project setup
+- Authentication
+- Database setup
 
-Testing, deployment, documentation.
+---
 
-## Functional Requirements
+## Week 2
+- Camera integration
+- MediaPipe Pose
+- Skeleton detection
+- Squat posture analysis
 
--   Webcam access
--   Real-time inference
--   User authentication
--   Workout tracking
--   Feedback generation
+---
 
-## Non-functional Requirements
+## Week 3
+- Plank posture analysis
+- Dashboard
+- Workout history
+- Analytics
 
--   Responsive UI
--   Low latency
--   Secure authentication
--   Modular architecture
--   Maintainable code
+---
 
-## Testing
+## Week 4
+- Testing
+- Performance optimization
+- Bug fixing
+- Documentation
+- Deployment
 
--   Unit tests
--   API tests
--   Integration tests
--   UI tests
--   AI validation
+---
 
-## Deployment
+# 7. Sprint Plan
 
--   Frontend: Vercel
--   Backend: Render
--   Database: SQLite
--   Docker support
+## Sprint 1 – Project Foundation
 
-## Future Enhancements
+### Goal
+Create the application foundation.
 
--   Push-up detection
--   Lunge detection
--   Voice coaching
--   Mobile app
--   Personalized workout plans
--   Wearable integration
+### Tasks
+- Project setup
+- Authentication
+- Navigation
+- Database
+- UI screens
 
-## Resume Highlights
+### Deliverables
+- Working mobile application with login system
 
--   Built a real-time AI fitness coach using MediaPipe Pose and OpenCV.
--   Developed FastAPI backend with REST APIs.
--   Built React frontend with webcam integration.
--   Implemented posture scoring and correction algorithms.
--   Stored workout analytics in SQLite.
--   Designed modular AI pipeline for scalable exercise recognition.
+---
 
-## License
+## Sprint 2 – AI Integration
 
-MIT
+### Goal
+Implement pose estimation.
 
-## Acknowledgements
+### Tasks
+- Camera integration
+- MediaPipe Pose
+- Joint angle calculation
+- Skeleton visualization
 
-MediaPipe, OpenCV, FastAPI, React, Vite, SQLite.
+### Deliverables
+- Live pose detection
+
+---
+
+## Sprint 3 – Exercise Analysis
+
+### Goal
+Implement posture correction.
+
+### Tasks
+- Squat analysis
+- Plank analysis
+- Feedback generation
+- Workout saving
+
+### Deliverables
+- AI posture correction for squats and planks
+
+---
+
+## Sprint 4 – Finalization
+
+### Goal
+Complete the application.
+
+### Tasks
+- Dashboard
+- Analytics
+- Testing
+- Documentation
+- Deployment
+
+### Deliverables
+- Production-ready AI mobile fitness coach
