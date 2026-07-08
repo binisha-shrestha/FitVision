@@ -97,15 +97,6 @@ The first version focuses on **Squats** and **Planks**, with future support plan
 
 # 3. Database Schema
 
-## users
-
-| Field | Type |
-|--------|------|
-| id | INTEGER PK |
-| full_name | TEXT |
-| email | TEXT |
-| password_hash | TEXT |
-| created_at | DATETIME |
 
 ---
 
